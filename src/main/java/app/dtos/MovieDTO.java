@@ -4,6 +4,7 @@ import app.entities.Actor;
 import app.entities.Director;
 import app.entities.Genre;
 import app.entities.Movie;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
@@ -15,6 +16,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class MovieDTO {
 
     private long id;
@@ -28,7 +30,6 @@ public class MovieDTO {
     private LocalDate releaseDate;
     @JsonProperty ("original_language")
     private String originalLanguage;
-    @JsonProperty ("genre_ids")
     private Set<GenreDTO> genres;
     private Set<ActorDTO> actors;
     private DirectorDTO director;

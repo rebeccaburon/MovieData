@@ -19,8 +19,8 @@ public class Director {
     private long id;
     private String directorName;
 
-    @OneToMany (mappedBy = "directorList")
-    private Set<Movie> moviesList;
+    @OneToMany (mappedBy = "director")
+    private Set<Movie> movies;
 
     public Director(DirectorDTO directorDTO) {
         this.id = directorDTO.getId();
