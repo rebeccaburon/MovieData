@@ -1,5 +1,6 @@
 package app.entities;
 
+import app.dtos.GenreDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,5 +22,10 @@ public class Genre {
 
     @ManyToMany
     private Set<Movie> movies;
+
+    public Genre(GenreDTO genreDTO) {
+        this.id = genreDTO.getId();
+        this.genreName = genreDTO.getGenreName();
+    }
 
 }

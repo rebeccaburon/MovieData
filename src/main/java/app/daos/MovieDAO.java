@@ -1,48 +1,54 @@
 package app.daos;
 
 import app.config.HibernateConfig;
+import app.dtos.DirectorDTO;
 import app.dtos.MovieDTO;
+import app.entities.Movie;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class MovieDAO implements IDAO<MovieDTO> {
+
+public class MovieDAO {
 
 
-    private EntityManagerFactory emf = HibernateConfig.getEntityManagerFactory("movie_data");
+    private final EntityManagerFactory emf;
 
-
-    @Override
-    public MovieDTO getId(Integer id) {
-        try (EntityManager em = emf.createEntityManager()) {
-            return em.find(MovieDTO.class, id);
-        }
+    public MovieDAO(EntityManagerFactory emf) {
+        this.emf = emf;
     }
 
-    @Override
-    public Set<MovieDTO> getAll() {
-        try (EntityManager em = emf.createEntityManager()) {
-            TypedQuery<MovieDTO> query = em.createQuery("SELECT m FROM Movie m", MovieDTO.class);
-            List<MovieDTO> movieDTOList = query.getResultList();
-            return movieDTOList.stream()
-                    .collect(Collectors.toSet());
-        }
-    }
 
-    @Override
-    public void create(MovieDTO movieDTO) {
+
+
+
+    public MovieDTO create(MovieDTO movieDTO) {
+        Movie movie = new Movie(movieDTO);
+
         try (EntityManager em = emf.createEntityManager()) {
             em.getTransaction().begin();
-            em.persist(movieDTO);
-            em.getTransaction().commit();
+
+            //Check movie in db
+            Movie movieFound = em.find(Movie.class, movie.getId());
+            if (movieFound != null) {
+                System.out.println("Movie exists in database");
+                return null;
+            }
+
+
         }
+        return movieDTO;
     }
 
-    @Override
+
     public void update(MovieDTO movieDTO) {
         try (EntityManager em = emf.createEntityManager()) {
             em.getTransaction().begin();
@@ -52,7 +58,7 @@ public class MovieDAO implements IDAO<MovieDTO> {
 
     }
 
-    @Override
+
     public void delete(MovieDTO movieDTO) {
         try (EntityManager em = emf.createEntityManager()) {
             em.getTransaction().begin();

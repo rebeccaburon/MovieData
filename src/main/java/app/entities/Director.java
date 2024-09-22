@@ -1,11 +1,13 @@
 package app.entities;
 
+import app.dtos.DirectorDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.HashSet;
 import java.util.Set;
 @Getter
 @Setter
@@ -14,10 +16,16 @@ import java.util.Set;
 @Entity
 public class Director {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String directorName;
 
-    @OneToMany (mappedBy = "director")
-    private Set<Movie> movies;
+    @OneToMany (mappedBy = "directorList")
+    private Set<Movie> moviesList;
+
+    public Director(DirectorDTO directorDTO) {
+        this.id = directorDTO.getId();
+        this.directorName = directorDTO.getDirectorName();
+
+    }
+
 }
