@@ -44,8 +44,7 @@ public class Movie {
         this.overview = movieDTO.getOverview();
         this.releaseDate = movieDTO.getReleaseDate();
         this.originalLanguage = movieDTO.getOriginalLanguage();
-        this.director = new Director(movieDTO.getDirector());
-
+        this.director = movieDTO.getDirector() == null ? null : new Director(movieDTO.getDirector());
     }
 
     public void addGenre(Genre genre) {

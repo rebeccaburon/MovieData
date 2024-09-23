@@ -11,6 +11,8 @@ import lombok.*;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -41,8 +43,14 @@ public class MovieDTO {
         this.releaseDate = movie.getReleaseDate();
         this.originalLanguage = movie.getOriginalLanguage();
 
-        this.genres = new HashSet<>();
-        this.actors = new HashSet<>();
+        this.genres = movie.getGenres().stream()
+                .map(genre -> new GenreDTO(genre))
+                .collect(Collectors.toSet());
+
+        this.actors = movie.getActors().stream()
+                .map(actor -> new ActorDTO(actor))
+                .collect(Collectors.toSet());
+
         this.director = movie.getDirector() !=null ? new DirectorDTO(movie.getDirector()) : null;
 
     }

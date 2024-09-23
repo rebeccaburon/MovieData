@@ -90,7 +90,7 @@ public class MovieDAO {
                     em.persist(director);
                 }
             }
-            em.persist(movie);
+
             em.getTransaction().commit();
         }
     }
