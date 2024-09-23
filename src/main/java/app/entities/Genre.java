@@ -18,14 +18,14 @@ public class Genre {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String genreName;
+    private String name;
 
     @ManyToMany
     private Set<Movie> movies;
 
     public Genre(GenreDTO genreDTO) {
         this.id = genreDTO.getId();
-        this.genreName = genreDTO.getGenreName();
+        this.name = genreDTO.getName();
     }
 
 }

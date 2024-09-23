@@ -110,7 +110,6 @@ public class MovieDAO {
             Movie movie = new Movie(movieDTO);
             if (movie.getTitle() != null) {
                 movie.setTitle(movieDTO.getTitle());
-                movie.setMediaType(movieDTO.getMediaType());
                 movie.setOverview(movieDTO.getOverview());
                 movie.setReleaseDate(movieDTO.getReleaseDate());
             }

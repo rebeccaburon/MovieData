@@ -17,10 +17,12 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DirectorDTO {
     private long id;
-    private String directorName;
+    private String name;
+
+
     public DirectorDTO (Director director){
         this.id = director.getId();
-        this.directorName = director.getDirectorName();
+        this.name = director.getName();
     }
 
 }

@@ -24,10 +24,11 @@ public class Main {
         objectMapper.registerModule(new JavaTimeModule());
         MovieService movieService = new MovieService(objectMapper);
 
-
-        //Get getAllMoviesFromThisYear
-        List<MovieDTO> movieDTOs = movieService.getAllMoviesFromThisYear("results", "https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&primary_release_year=2024&sort_by=popularity.desc");
-
+        List<MovieDTO> movieDTOList = movieService.getDanishMoviesFromLastFiveYears("results","https://api.themoviedb.org/3/discover/movie?with_origin_country=DK" );
+        for (MovieDTO m : movieDTOList) {
+            movieDAO.create(m);
+        }
+        System.out.println(movieDTOList);
 
     }
 }

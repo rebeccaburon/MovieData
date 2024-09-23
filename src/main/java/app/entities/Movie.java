@@ -19,11 +19,13 @@ import java.util.Set;
 public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private long id;
     private String title;
-    private String mediaType;
     private String overview;
+    @Column(name ="release_date")
     private LocalDate releaseDate;
+    @Column (name = "original_language")
     private String originalLanguage;
 
     @ManyToMany
@@ -39,10 +41,11 @@ public class Movie {
     public Movie(MovieDTO movieDTO) {
         this.id = movieDTO.getId();
         this.title = movieDTO.getTitle();
-        this.mediaType = movieDTO.getMediaType();
         this.overview = movieDTO.getOverview();
         this.releaseDate = movieDTO.getReleaseDate();
         this.originalLanguage = movieDTO.getOriginalLanguage();
+        this.director = new Director(movieDTO.getDirector());
+
     }
 
     public void addGenre(Genre genre) {

@@ -17,14 +17,14 @@ import java.util.Set;
 public class Director {
     @Id
     private long id;
-    private String directorName;
+    private String name;
 
     @OneToMany (mappedBy = "director")
     private Set<Movie> movies;
 
     public Director(DirectorDTO directorDTO) {
         this.id = directorDTO.getId();
-        this.directorName = directorDTO.getDirectorName();
+        this.name = directorDTO.getName();
 
     }
 

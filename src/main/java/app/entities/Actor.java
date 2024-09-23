@@ -4,10 +4,8 @@ import app.dtos.ActorDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 
-import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -17,13 +15,13 @@ import java.util.Set;
 public class Actor {
     @Id
     private long id;
-    private String actorName;
+    private String name;
 
     @ManyToMany
     private Set<Movie> movies;
 
     public Actor (ActorDTO actorDTO){
         this.id = actorDTO.getId();
-        this.actorName = actorDTO.getActorName();
+        this.name = actorDTO.getName();
     }
 }
